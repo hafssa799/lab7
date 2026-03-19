@@ -109,7 +109,7 @@ DIVA contient 13 challenges de sécurité, couvrant plusieurs types de vulnérab
 
 # Étape 6 : Analyse avec MobSF
 
-6.1 Analyse statique
+# 6.1 Analyse statique
 
 La première étape consiste à analyser l’APK sans l’exécuter.
 
@@ -139,7 +139,7 @@ La première étape consiste à analyser l’APK sans l’exécuter.
 
  - absence de mécanismes de protection avancés
 
-6.2 Analyse dynamique
+# 6.2 Analyse dynamique
 
 Contrairement à l’analyse statique, ici l’application est exécutée dans un environnement contrôlé.
 
@@ -157,11 +157,15 @@ Cliquez sur le bouton vert "Start Dynamic Analysis" directement dans le rapport 
 MobSF effectue automatiquement :
 
 ✅ Installation de DIVA sur l'émulateur via ADB.
+
 ✅ Lancement de Frida Server pour l'instrumentation dynamique.
+
 ✅ Configuration du proxy HTTPS global pour intercepter tout le trafic réseau.
+
 ✅ Ouverture de l'interface Dynamic Analyzer.
 
-6.3 Interface d’analyse
+
+# 6.3 Interface d’analyse
 
 # L’environnement de test est composé de :
 
@@ -177,7 +181,7 @@ MobSF effectue automatiquement :
 
 🎯 Cela permet de surveiller le comportement de l’application pendant son exécution.
 
-6.4 Analyse des logs (Logcat)
+# 6.4 Analyse des logs (Logcat)
 
 Le flux Logcat permet d’observer les messages générés par l’application.
 
@@ -189,7 +193,7 @@ Le flux Logcat permet d’observer les messages générés par l’application.
 
 ![](https://github.com/user-attachments/assets/1d6bea7b-a759-47ab-be6c-de4dba67fb8b)
 
-6.5 Tests de sécurité réseau
+# 6.5 Tests de sécurité réseau
 
 MobSF exécute plusieurs vérifications liées au protocole HTTPS :
 
@@ -205,7 +209,7 @@ MobSF exécute plusieurs vérifications liées au protocole HTTPS :
 
 💡 Ces tests permettent de voir si l’application protège correctement ses communications réseau.
 
-6.6 Exploration des vulnérabilités
+# 6.6 Exploration des vulnérabilités
 
 Pendant l’analyse dynamique, on peut tester différents scénarios directement depuis l’émulateur.
 
@@ -321,7 +325,7 @@ MobSF affiche le code JavaScript complet injecté dans l’application.
 
 ✔ getAllMethods() → liste des méthodes disponibles
 
-6.8 Rapport final
+# 6.8 Rapport final
 
 À la fin de l’analyse, MobSF génère un rapport complet contenant :
 
