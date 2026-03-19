@@ -234,6 +234,7 @@ Des champs mal sécurisés peuvent provoquer :
 MobSF intègre une bibliothèque de scripts Frida prêts à l’emploi permettant d’effectuer de l’instrumentation dynamique sur une application Android. Cette fonctionnalité permet d’intercepter, modifier ou observer le comportement de l’application en temps réel.
 
 🔸1. Contournement de la détection d’émulateur
+
 ✔ Script utilisé : bypass-emulator-detection
 
 Capture : Frida Code Editor avec le script chargé
