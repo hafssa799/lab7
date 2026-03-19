@@ -237,7 +237,8 @@ MobSF intègre une bibliothèque de scripts Frida prêts à l’emploi permettan
 
 ✔ Script utilisé : bypass-emulator-detection
 
-Capture : Frida Code Editor avec le script chargé
+        Capture : Frida Code Editor avec le script chargé
+
 ![](https://github.com/user-attachments/assets/6dd0d62a-66f4-4126-b0cb-f9f5c9088dbe)
 
 Statut : Script injecté avec succès
@@ -276,7 +277,8 @@ Le script est injecté dans le contexte de l’application cible, permettant de 
 
 ✔ Script utilisé : crypto-aes-key
 
-Capture : Frida + crypto-aes-key + accès root
+ Capture : Frida + crypto-aes-key + accès root
+
 ![](https://github.com/user-attachments/assets/2d4ec3cf-45ce-471b-9bd7-92671203b3dd)
 
 Statut : Script actif avec interception réussie
@@ -311,7 +313,8 @@ MobSF fournit un accès direct au terminal via :
 
 🔸 5. Code Frida injecté
 
-Capture : fenêtre "Injected Frida Script"
+    Capture : fenêtre "Injected Frida Script"
+
 ![](https://github.com/user-attachments/assets/49786f8f-7023-43cc-a36d-3d2844ea7676)
 
 MobSF affiche le code JavaScript complet injecté dans l’application.
