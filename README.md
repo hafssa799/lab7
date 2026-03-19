@@ -345,22 +345,29 @@ Après l’analyse de base, il est possible d’aller plus loin.
 🔍 Exploration manuelle
 
 Pour chaque challenge DIVA :
+
 1. Lancez l'activité correspondante depuis l'émulateur.
+
 2. Observez les logs dans le Logcat Stream de MobSF.
+
 3. Analysez le trafic réseau capturé dans HTTP(S) Traffic.
+
 4. Vérifiez les fichiers créés via File Monitor.
 
 On peut injecter du code pour surveiller des méthodes spécifiques.
 
-
 Java.perform(function() {
     var MainActivity = Java.use("jakhar.aseem.diva.MainActivity");
+
     MainActivity.someMethod.implementation = function() {
         console.log("[*] someMethod() intercepted!");
-        return this.someMethod();
+
+        // Appel de la méthode originale
+        var result = this.someMethod.apply(this, arguments);
+
+        return result;
     };
 });
-
 
 # Conclusion 
 
