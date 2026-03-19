@@ -107,20 +107,208 @@ DIVA contient 13 challenges de sécurité, couvrant plusieurs types de vulnérab
 
 ![](https://github.com/user-attachments/assets/c1d4ee29-3f12-44b4-bcbb-8f9e9ebb87b0)
 
-# Étape 6 : Analyse statique et dynamique avec MobSF
+Étape 5 : Récupération de l’application DIVA
 
- 1. Analyse statique
+Pour réaliser les tests de sécurité, on utilise une application volontairement vulnérable appelée DIVA (Damn Insecure and Vulnerable App).
 
-L’application diva.apk a été importée dans MobSF via : Upload & Analyze
+Cette application a été conçue spécialement pour l’apprentissage de la sécurité mobile. Elle regroupe plusieurs scénarios réels de vulnérabilités que l’on peut rencontrer dans des applications Android.
 
-![](https://github.com/user-attachments/assets/190c1ddb-7836-4ac0-80e8-8962492358a6)
+👉 Elle contient 13 cas pratiques, parmi lesquels :
+#	Challenge	Type de vulnérabilité
+1	Insecure Logging	Fuite d'infos dans les logs
+2	Hardcoded Issues Part 1	Credentials en dur dans le code
+3	Insecure Data Storage Part 1	SharedPreferences non sécurisées
+4	Insecure Data Storage Part 2	Base de données SQLite non chiffrée
+5	Insecure Data Storage Part 3	Fichiers temp non sécurisés
+6	Insecure Data Storage Part 4	Stockage externe non sécurisé
+7	Input Validation Issues Part 1	Injection SQL
+8	Input Validation Issues Part 2	XSS via WebView
+9	Access Control Issues Part 1	Activités exportées accessibles
+10	Access Control Issues Part 2	Content Provider exposé
+11	Access Control Issues Part 3	Activités protégées contournables
+12	Hardcoded Issues Part 2	JNI / code natif hardcodé
+13	Input Validation Issues Part 3	Buffer overflow / validation native
 
-2. Analyse dynamique
+stockage de données non sécurisé
 
-Après l’analyse statique, nous avons lancé : Start Dynamic Analyzer
+identifiants codés en dur
 
-![](https://github.com/user-attachments/assets/d8b98282-4206-47cd-82dc-ec6c4f849bd3)
+problèmes de validation des entrées
 
+failles de contrôle d’accès
+
+vulnérabilités liées au code natif
+
+📥 Téléchargement :
+
+Site officiel : Payatu
+
+GitHub : dépôt open source
+
+Une fois téléchargé, le fichier APK est placé localement pour être utilisé dans l’outil d’analyse.
+
+🔎 Étape 6 : Analyse avec MobSF
+6.1 Analyse statique
+
+La première étape consiste à analyser l’APK sans l’exécuter.
+
+Dans MobSF (Mobile Security Framework) :
+
+importer le fichier APK via Upload & Analyze
+
+attendre la génération automatique du rapport
+
+💡 Cette analyse permet d’extraire :
+
+les permissions Android
+
+le fichier manifest
+
+le code décompilé
+
+les composants exposés
+
+📊 Résultat observé :
+
+score de sécurité faible → application vulnérable
+
+présence de composants exportés
+
+absence de mécanismes de protection avancés
+
+6.2 Analyse dynamique
+
+Contrairement à l’analyse statique, ici l’application est exécutée dans un environnement contrôlé.
+
+Deux façons de lancer l’analyse :
+
+depuis la liste des applications disponibles
+
+directement depuis le rapport statique
+
+⚙️ Automatiquement, MobSF :
+
+installe l’application via ADB
+
+configure un proxy pour intercepter le trafic réseau
+
+active Frida pour l’instrumentation
+
+lance l’émulateur Android
+
+6.3 Interface d’analyse
+
+L’environnement de test est composé de :
+
+écran de l’émulateur (visualisation de l’app)
+
+logs système en temps réel
+
+outils d’analyse réseau
+
+éditeur de scripts Frida
+
+🎯 Cela permet de surveiller le comportement de l’application pendant son exécution.
+
+6.4 Analyse des logs (Logcat)
+
+Le flux Logcat permet d’observer les messages générés par l’application.
+
+👉 Intérêt :
+
+détecter des informations sensibles exposées
+
+repérer des erreurs ou comportements anormaux
+
+Exemple :
+
+affichage de mots de passe ou tokens → faille de logging
+
+6.5 Tests de sécurité réseau
+
+MobSF exécute plusieurs vérifications liées au protocole HTTPS :
+
+configuration TLS
+
+résistance au MITM
+
+vérification du SSL Pinning
+
+trafic en clair
+
+💡 Ces tests permettent de voir si l’application protège correctement ses communications réseau.
+
+6.6 Exploration des vulnérabilités
+
+Pendant l’analyse dynamique, on peut tester différents scénarios directement depuis l’émulateur.
+
+🔓 Exemple 1 : Contrôle d’accès
+
+Certaines activités peuvent être lancées sans authentification → problème de sécurité.
+
+💣 Exemple 2 : Validation des entrées
+
+Des champs mal sécurisés peuvent provoquer :
+
+crash de l’application
+
+comportement inattendu
+
+6.7 Instrumentation avec Frida
+
+L’outil Frida permet d’interagir avec l’application en temps réel.
+
+Exemples d’utilisation :
+
+contourner la détection d’émulateur
+
+intercepter des méthodes Java
+
+récupérer des données sensibles en mémoire
+
+👉 Cela permet de simuler des attaques avancées sans modifier l’APK.
+
+6.8 Rapport final
+
+À la fin de l’analyse, MobSF génère un rapport complet contenant :
+
+logs système
+
+trafic réseau capturé
+
+résultats des tests de sécurité
+
+captures d’écran
+
+📄 Ce rapport peut être exporté pour documentation ou présentation.
+
+🧪 Étape 7 : Tests avancés
+
+Après l’analyse de base, il est possible d’aller plus loin.
+
+🔍 Exploration manuelle
+
+tester chaque fonctionnalité de l’application
+
+observer les réactions dans les logs
+
+analyser les fichiers générés
+
+🧠 Scripts personnalisés
+
+On peut injecter du code pour surveiller des méthodes spécifiques.
+
+🚧 Contournement des protections
+
+bypass SSL Pinning
+
+bypass Root Detection
+
+accès aux composants internes
+
+📤 Export des résultats
+
+Les résultats peuvent être sauvegardés sous forme de rapport détaillé pour analyse ou présentation.
 # Conclusion 
 
 Le LAB 7 a permis de configurer un émulateur Android sans Play Store et d’installer MobSF pour réaliser des analyses statiques et dynamiques d’APK vulnérables. L’application DIVA a servi de cas pratique, révélant des failles comme le stockage non sécurisé et les credentials codés en dur. L’analyse dynamique sur émulateur rooté a montré le comportement réel de l’application, tandis que MobSF a fourni un rapport clair des vulnérabilités. Ce laboratoire illustre l’importance d’un environnement contrôlé pour tester la sécurité des applications mobiles de manière fiable et reproductible.
