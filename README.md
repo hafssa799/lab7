@@ -2,8 +2,9 @@
 
  # Objectif
 
-Mettre en place un environnement d’analyse dynamique Android en utilisant un émulateur AVD sans Play Store et préparer MobSF.
+L’objectif de ce laboratoire est de mettre en place un environnement complet d’analyse dynamique des applications Android en utilisant l’outil MobSF, associé à un émulateur Android (AVD) configuré spécifiquement pour les tests de sécurité.
 
+Ce laboratoire vise à permettre à l’étudiant de comprendre et maîtriser les techniques d’analyse en temps réel du comportement d’une application mobile, contrairement à l’analyse statique qui se limite à l’étude du code.
 # Étape 1 : Création de l’émulateur AVD sans Play Store
 La création d’un émulateur Android (AVD) sans Google Play Store est une étape essentielle pour garantir un environnement adapté à l’analyse dynamique avec MobSF. En effet, les images système contenant Google Play intègrent des mécanismes de sécurité supplémentaires (comme Play Protect) qui peuvent bloquer ou fausser l’exécution d’applications vulnérables utilisées en test, telles que DIVA. En choisissant une image basée sur Google APIs sans Play Store, avec une version stable comme Android 10 (API 29) ou Android 11 (API 30), on obtient un environnement plus flexible, compatible avec les outils d’analyse, et plus facile à manipuler (root, instrumentation, etc.). Cette configuration permet ainsi d’effectuer des tests de sécurité dans des conditions contrôlées et reproductibles.
 
