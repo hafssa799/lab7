@@ -95,114 +95,84 @@ Dans cette étape, nous avons téléchargé l’application vulnérable DIVA (Da
 
 DIVA contient 13 challenges de sécurité, couvrant plusieurs types de vulnérabilités :
 
-<img width="263" height="329" alt="image" src="https://github.com/user-attachments/assets/4fcc9f13-c124-4071-a2dc-ac619103b79d" />
+![](https://github.com/user-attachments/assets/4fcc9f13-c124-4071-a2dc-ac619103b79d)
+
+## Téléchargement :
 
 # Site officiel : 
        http://www.payatu.com/damn-insecure-and-vulnerable-app/
 # Source GitHub : 
        https://github.com/payatu/diva-android
+       
 ![](https://github.com/user-attachments/assets/c1d4ee29-3f12-44b4-bcbb-8f9e9ebb87b0)
 
-Étape 5 : Récupération de l’application DIVA
+# Étape 6 : Analyse avec MobSF
 
-Pour réaliser les tests de sécurité, on utilise une application volontairement vulnérable appelée DIVA (Damn Insecure and Vulnerable App).
-
-Cette application a été conçue spécialement pour l’apprentissage de la sécurité mobile. Elle regroupe plusieurs scénarios réels de vulnérabilités que l’on peut rencontrer dans des applications Android.
-
-👉 Elle contient 13 cas pratiques, parmi lesquels :
-#	Challenge	Type de vulnérabilité
-1	Insecure Logging	Fuite d'infos dans les logs
-2	Hardcoded Issues Part 1	Credentials en dur dans le code
-3	Insecure Data Storage Part 1	SharedPreferences non sécurisées
-4	Insecure Data Storage Part 2	Base de données SQLite non chiffrée
-5	Insecure Data Storage Part 3	Fichiers temp non sécurisés
-6	Insecure Data Storage Part 4	Stockage externe non sécurisé
-7	Input Validation Issues Part 1	Injection SQL
-8	Input Validation Issues Part 2	XSS via WebView
-9	Access Control Issues Part 1	Activités exportées accessibles
-10	Access Control Issues Part 2	Content Provider exposé
-11	Access Control Issues Part 3	Activités protégées contournables
-12	Hardcoded Issues Part 2	JNI / code natif hardcodé
-13	Input Validation Issues Part 3	Buffer overflow / validation native
-
-stockage de données non sécurisé
-
-identifiants codés en dur
-
-problèmes de validation des entrées
-
-failles de contrôle d’accès
-
-vulnérabilités liées au code natif
-
-📥 Téléchargement :
-
-Site officiel : Payatu
-
-GitHub : dépôt open source
-
-Une fois téléchargé, le fichier APK est placé localement pour être utilisé dans l’outil d’analyse.
-
-🔎 Étape 6 : Analyse avec MobSF
 6.1 Analyse statique
 
 La première étape consiste à analyser l’APK sans l’exécuter.
 
-Dans MobSF (Mobile Security Framework) :
+1. Dans MobSF (Mobile Security Framework) :
 
-importer le fichier APK via Upload & Analyze
+2. importer le fichier APK via Upload & Analyze
 
-attendre la génération automatique du rapport
+3. attendre la génération automatique du rapport
 
 💡 Cette analyse permet d’extraire :
 
-les permissions Android
+- les permissions Android
 
-le fichier manifest
+- le fichier manifest
 
-le code décompilé
+- le code décompilé
 
-les composants exposés
+- les composants exposés
 
 📊 Résultat observé :
 
-score de sécurité faible → application vulnérable
+![](https://github.com/user-attachments/assets/7c45ee24-681f-4297-8725-02db012af1f6)
 
-présence de composants exportés
+ - score de sécurité faible → application vulnérable
 
-absence de mécanismes de protection avancés
+ - présence de composants exportés
+
+ - absence de mécanismes de protection avancés
 
 6.2 Analyse dynamique
 
 Contrairement à l’analyse statique, ici l’application est exécutée dans un environnement contrôlé.
 
-Deux façons de lancer l’analyse :
+# Option A — Depuis le tableau de bord "Apps Available
 
-depuis la liste des applications disponibles
+Naviguez vers Dynamic Analyzer → la liste des APKs disponibles s'affiche.
 
-directement depuis le rapport statique
+![](https://github.com/user-attachments/assets/958de178-f197-4fa9-b014-ec1848348921)
 
-⚙️ Automatiquement, MobSF :
+L'APK DivaApplication.apk (package jakhar.aseem.diva) est listée avec les actions disponibles : "Start Dynamic Analysis", "Start Dynamic Analysis (No reinstall)", et "View Report".
 
-installe l’application via ADB
+# Option B — Depuis le rapport statique
+Cliquez sur le bouton vert "Start Dynamic Analysis" directement dans le rapport statique.
 
-configure un proxy pour intercepter le trafic réseau
+MobSF effectue automatiquement :
 
-active Frida pour l’instrumentation
-
-lance l’émulateur Android
+✅ Installation de DIVA sur l'émulateur via ADB.
+✅ Lancement de Frida Server pour l'instrumentation dynamique.
+✅ Configuration du proxy HTTPS global pour intercepter tout le trafic réseau.
+✅ Ouverture de l'interface Dynamic Analyzer.
 
 6.3 Interface d’analyse
 
-L’environnement de test est composé de :
+# L’environnement de test est composé de :
 
-écran de l’émulateur (visualisation de l’app)
+- écran de l’émulateur (visualisation de l’app)
 
-logs système en temps réel
+- logs système en temps réel
 
-outils d’analyse réseau
+- outils d’analyse réseau
 
-éditeur de scripts Frida
+- éditeur de scripts Frida
+
+![](https://github.com/user-attachments/assets/083606d7-1b5c-4d58-83cb-f98b1302b786)
 
 🎯 Cela permet de surveiller le comportement de l’application pendant son exécution.
 
@@ -210,27 +180,27 @@ outils d’analyse réseau
 
 Le flux Logcat permet d’observer les messages générés par l’application.
 
-👉 Intérêt :
+# Intérêt :
 
-détecter des informations sensibles exposées
+- détecter des informations sensibles exposées
 
-repérer des erreurs ou comportements anormaux
+- repérer des erreurs ou comportements anormaux
 
-Exemple :
-
-affichage de mots de passe ou tokens → faille de logging
+![](https://github.com/user-attachments/assets/1d6bea7b-a759-47ab-be6c-de4dba67fb8b)
 
 6.5 Tests de sécurité réseau
 
 MobSF exécute plusieurs vérifications liées au protocole HTTPS :
 
-configuration TLS
+- configuration TLS
 
-résistance au MITM
+- résistance au MITM
 
-vérification du SSL Pinning
+- vérification du SSL Pinning
 
-trafic en clair
+- trafic en clair
+  
+  ![](https://github.com/user-attachments/assets/25152025-f5c6-44a8-838f-3eda97f080b2)
 
 💡 Ces tests permettent de voir si l’application protège correctement ses communications réseau.
 
@@ -240,71 +210,152 @@ Pendant l’analyse dynamique, on peut tester différents scénarios directement
 
 🔓 Exemple 1 : Contrôle d’accès
 
-Certaines activités peuvent être lancées sans authentification → problème de sécurité.
+- Certaines activités peuvent être lancées sans authentification → problème de sécurité.
+
+  ![](https://github.com/user-attachments/assets/4010c8ec-d8e7-4879-adf3-76e256eb6d39)
 
 💣 Exemple 2 : Validation des entrées
 
 Des champs mal sécurisés peuvent provoquer :
 
-crash de l’application
+- crash de l’application
 
-comportement inattendu
+- comportement inattendu
 
-6.7 Instrumentation avec Frida
+ ![](https://github.com/user-attachments/assets/331f8460-002a-41f9-bea9-56c7020ee35d)
 
-L’outil Frida permet d’interagir avec l’application en temps réel.
+# 6.7 — Instrumentation avec Frida
 
-Exemples d’utilisation :
+MobSF intègre une bibliothèque de scripts Frida prêts à l’emploi permettant d’effectuer de l’instrumentation dynamique sur une application Android. Cette fonctionnalité permet d’intercepter, modifier ou observer le comportement de l’application en temps réel.
 
-contourner la détection d’émulateur
+🔸1. Contournement de la détection d’émulateur
+✔ Script utilisé : bypass-emulator-detection
 
-intercepter des méthodes Java
+Capture : Frida Code Editor avec le script chargé
+![](https://github.com/user-attachments/assets/6dd0d62a-66f4-4126-b0cb-f9f5c9088dbe)
 
-récupérer des données sensibles en mémoire
+Statut : Script injecté avec succès
 
-👉 Cela permet de simuler des attaques avancées sans modifier l’APK.
+MobSF propose le script bypass-emulator-detection, développé par @Areizen_, permettant de contourner les mécanismes de détection d’émulateur implémentés dans certaines applications.
+
+# Fonctionnalités du script
+
+Ce script neutralise plusieurs méthodes de détection, notamment :
+
+- bypass_build_properties() → falsifie les propriétés système (Build.MODEL, BRAND…)
+
+- bypass_phonenumber() → masque les numéros de téléphone
+
+- bypass_deviceid() → falsifie l’IMEI
+
+- bypass_imsi() → masque l’IMSI
+
+- bypass_operator_name() → modifie l’opérateur réseau
+
+🔸 2. Injection du script Frida
+
+La section Instrumentation de MobSF propose plusieurs modes d’exécution :
+
+- Spawn & Inject → lance l’application puis injecte le script
+
+- Inject → injecte dans une application déjà lancée
+
+- Attach → attache Frida à un processus existant
+
+✅ Résultat
+
+Le script est injecté dans le contexte de l’application cible, permettant de modifier son comportement en temps réel.
+
+🔸 3. Interception des clés de chiffrement
+
+✔ Script utilisé : crypto-aes-key
+
+Capture : Frida + crypto-aes-key + accès root
+![](https://github.com/user-attachments/assets/2d4ec3cf-45ce-471b-9bd7-92671203b3dd)
+
+Statut : Script actif avec interception réussie
+
+Ce script permet d’intercepter les clés AES utilisées par l’application.
+
+# Fonctionnement
+
+Il hook la classe Java suivante : javax.crypto.spec.SecretKeySpec
+
+📊 Résultat
+
+- Les clés AES sont capturées en clair
+
+- Affichage en format hexadécimal
+
+- Observation directe des données sensibles utilisées par l’application
+
+🔸 4. Accès root et Shell
+
+MobSF fournit un accès direct au terminal via :
+
+[root@android] #
+
+✔ Utilisation
+
+- Navigation dans le système Android
+
+- Lecture/écriture de fichiers sensibles
+
+- Interaction directe avec l’application
+
+🔸 5. Code Frida injecté
+
+Capture : fenêtre "Injected Frida Script"
+![](https://github.com/user-attachments/assets/49786f8f-7023-43cc-a36d-3d2844ea7676)
+
+MobSF affiche le code JavaScript complet injecté dans l’application.
+
+🔍 Contenu du script
+
+- Bridge Frida ↔ Java (Frida 17+)
+
+- Fonctions utilitaires :
+
+✔ getLoadedClasses() → liste des classes chargées
+
+✔ getAllMethods() → liste des méthodes disponibles
 
 6.8 Rapport final
 
 À la fin de l’analyse, MobSF génère un rapport complet contenant :
 
-logs système
+- logs système
 
-trafic réseau capturé
+- trafic réseau capturé
 
-résultats des tests de sécurité
+- résultats des tests de sécurité
 
-captures d’écran
+![](https://github.com/user-attachments/assets/71bd28b3-3e5e-426c-b442-070291aac706)
 
-📄 Ce rapport peut être exporté pour documentation ou présentation.
-
-🧪 Étape 7 : Tests avancés
+# Étape 7 : Tests avancés
 
 Après l’analyse de base, il est possible d’aller plus loin.
 
 🔍 Exploration manuelle
 
-tester chaque fonctionnalité de l’application
-
-observer les réactions dans les logs
-
-analyser les fichiers générés
-
-🧠 Scripts personnalisés
+Pour chaque challenge DIVA :
+1. Lancez l'activité correspondante depuis l'émulateur.
+2. Observez les logs dans le Logcat Stream de MobSF.
+3. Analysez le trafic réseau capturé dans HTTP(S) Traffic.
+4. Vérifiez les fichiers créés via File Monitor.
 
 On peut injecter du code pour surveiller des méthodes spécifiques.
 
-🚧 Contournement des protections
 
-bypass SSL Pinning
+Java.perform(function() {
+    var MainActivity = Java.use("jakhar.aseem.diva.MainActivity");
+    MainActivity.someMethod.implementation = function() {
+        console.log("[*] someMethod() intercepted!");
+        return this.someMethod();
+    };
+});
 
-bypass Root Detection
 
-accès aux composants internes
-
-📤 Export des résultats
-
-Les résultats peuvent être sauvegardés sous forme de rapport détaillé pour analyse ou présentation.
 # Conclusion 
 
 Le LAB 7 a permis de configurer un émulateur Android sans Play Store et d’installer MobSF pour réaliser des analyses statiques et dynamiques d’APK vulnérables. L’application DIVA a servi de cas pratique, révélant des failles comme le stockage non sécurisé et les credentials codés en dur. L’analyse dynamique sur émulateur rooté a montré le comportement réel de l’application, tandis que MobSF a fourni un rapport clair des vulnérabilités. Ce laboratoire illustre l’importance d’un environnement contrôlé pour tester la sécurité des applications mobiles de manière fiable et reproductible.
