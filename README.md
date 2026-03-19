@@ -95,16 +95,12 @@ Dans cette étape, nous avons téléchargé l’application vulnérable DIVA (Da
 
 DIVA contient 13 challenges de sécurité, couvrant plusieurs types de vulnérabilités :
 
-- Stockage non sécurisé (Insecure Storage)
+<img width="263" height="329" alt="image" src="https://github.com/user-attachments/assets/4fcc9f13-c124-4071-a2dc-ac619103b79d" />
 
-- Credentials codés en dur (Hardcoded Credentials)
-
-- Intents non sécurisés
-
-- Logging sensible
-
-- Code natif vulnérable
-
+# Site officiel : 
+       http://www.payatu.com/damn-insecure-and-vulnerable-app/
+# Source GitHub : 
+       https://github.com/payatu/diva-android
 ![](https://github.com/user-attachments/assets/c1d4ee29-3f12-44b4-bcbb-8f9e9ebb87b0)
 
 Étape 5 : Récupération de l’application DIVA
